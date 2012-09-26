@@ -1,33 +1,11 @@
-ZendSkeletonApplication
+Zend Sample Application with dependency injection
 =======================
 
 Introduction
 ------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+This is my attempt at creating objects the recommended way, using closures in the Module's config methods. I started with Zend's Skeleton Application
+Building depend on BrickFactory 
+BrickFactory depends on Brick
+and Bricks need a color to be instantiated
 
-
-Installation
-------------
-
-Using Composer (recommended)
-----------------------------
-The recommended way to get a working copy of this project is to clone the repository
-and use composer to install dependencies:
-
-    cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
-    cd ZendSkeletonApplication
-    php composer.phar install
-
-Using Git submodules
---------------------
-Alternatively, you can install using native git submodules:
-
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
-
-Virtual Host
-------------
-Afterwards, set up a virtual host to point to the public/ directory of the
-project and you should be ready to go!
+I wasn't sure of the best method for creating multiple instances of an injected object, so I came up with the BrickFactory, which simply clones the original Brick and sets its new color. 
