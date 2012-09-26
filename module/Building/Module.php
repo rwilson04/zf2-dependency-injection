@@ -35,11 +35,6 @@ class Module
 					$brick = new Model\Brick($color);
 					return $brick;
 				},
-				#'BrickFactory'=> function($sm)
-				#{
-				#	$brickFactory = new Model\BrickFactory();
-				#	return $brickFactory;
-				#},
 				'BrickFactory'=> function($sm)
 				{
 					$brick = $sm->get('Brick');
@@ -48,16 +43,10 @@ class Module
 				},
 				'Building'=>function($sm)
 				{
-					//$brickFactory = $sm->get('AbstractBrickFactory');
 					$brickFactory = $sm->get('BrickFactory');
-					#$brickFactory = $sm->get('BrickFactory');
 					$building = new Model\Building($brickFactory);
 					return $building;
 				},
-			),
-			#'abstractFactories'=>array(
-			'abstract_factories'=>array(
-				#'\Building\Model\BrickFactory',
 			),
 		);
 	}
@@ -68,11 +57,7 @@ class Module
 			'Building\Controller\Buildings' => function ($sm)
 			{
 				$building = $sm->getServiceLocator()->get('Building');
-				#$model = $sm->get('Service\ViewModel');
-				#$model = $sm->getServiceLocator()->get('Factory\ViewModel');
 				$model = $sm->getServiceLocator()->get('Invokable\ViewModel');
-				#$model = $sm->getServiceLocator()->get('ViewModel');
-				//$viewModel = new ViewModel(array('key'=>'value'));
 				$controller = new Controller\BuildingController($building, $model);
 				return $controller;
 			}

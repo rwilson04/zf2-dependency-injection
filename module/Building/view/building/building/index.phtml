@@ -1,7 +1,14 @@
+<table >
 <?php
-foreach ($this->building->getBricks() as $brick)
+foreach ($this->building->getBricks() as $key=>$layer)
 {
-	echo $brick->getColor();
-	echo '<br />';
+	echo '<tr>';
+	foreach ($layer as $brick)
+	{
+		echo '<td style="text-align:center; border:1px solid black">';
+		echo $brick->getColor();
+		echo '</td>';
+	}
+	echo '</tr>';
 }
 ?>

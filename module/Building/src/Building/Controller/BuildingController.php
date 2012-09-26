@@ -16,13 +16,7 @@ class BuildingController extends AbstractActionController
 	{
 		$this->building = $building;
 		$this->viewModel = $viewModel;
-		//echo "</pre>;end";
 	}
-
-	//public function setBuilding(Building\Model\Building $building)
-	//{
-	//	$this->building = $building
-	//}
 
 	public function getBuilding()
 	{
@@ -39,14 +33,10 @@ class BuildingController extends AbstractActionController
 		$building = $this->getBuilding();
 		$building->addLayer('blue');
 		$building->addLayer();
-		//echo '<pre>';
-		//var_dump($building->getBricks());
-		//$viewModel = $this->getViewModel()->setVariables(array('building'=>$building));
-		$building2 = $this->getBuilding();
+		$building2 = $this->getBuilding(); //gets same instance
 		$building2->addLayer('green');
 		$building2->addLayer();
 		$viewModel = $this->getViewModel();
-		#$viewModel = new ViewModel();
 		$viewModel->setVariables(array('building'=>$building));
 		return $viewModel;
 	}

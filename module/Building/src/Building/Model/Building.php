@@ -5,20 +5,11 @@ class Building
 {
 	protected $brickFactory;
 	protected $bricks;
-	#protected $brick;
 
 	public function __construct(BrickFactory $brickFactory)
-	//public function __construct(\Closure $brickFactory)
-	#public function __construct(Brick $brick)
 	{
 		$this->brickFactory = $brickFactory;
-		#$this->brick = function() { return $brick; };
 	}
-
-	#public function setBrick(Brick $brick)
-	#{
-		#$this->brick = $brick;
-	#}
 
 	public function getNewBrick($color)
 	{
@@ -31,22 +22,21 @@ class Building
 	public function addLayer($color=null)
 	{
 		$colors = array("red", "brown", "black", "yellow");
-		for ($i=0; $i<10; $i++)
+		$layer = array();
+		for ($i=0; $i<6; $i++)
 		{
 			if ($color === null)
 			{
-				//$brick = $this->brickFactory->createBrick($colors[array_rand($colors)]);
 				$randomColor = $colors[array_rand($colors)];
-				//echo "adding $randomColor brick <br >";
-				$brick = $this->getNewBrick($randomColor);
+				$brick = $this->brickFactory->createBrick($randomColor);
 			}
 			else
 			{
-				$brick = $this->getNewBrick($color);
-				#$brick = $this->brickFactory->createBrick($color);
+				$brick = $this->brickFactory->createBrick($color);
 			}
-			$this->addBrick($brick);
+			$layer[] = $brick;
 		}
+		$this->bricks[]=$layer;
 	}
 
 	public function getBricks()
@@ -54,8 +44,4 @@ class Building
 		return $this->bricks;
 	}
 
-	private function addBrick(Brick $brick)
-	{
-		$this->bricks[] = $brick;
-	}
 }
