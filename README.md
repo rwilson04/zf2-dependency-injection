@@ -5,10 +5,5 @@ Introduction
 ------------
 This is my attempt at creating objects the recommended way, using closures in the Module's config methods. I started with Zend's Skeleton Application
 
-Building depend on BrickFactory 
+I'm trying to see if I can create multiple instances of a class using the AbstractPluginManager
 
-BrickFactory depends on Brick
-
-Bricks need a color to be instantiated
-
-I wasn't sure of the best method for creating multiple instances of an injected object, so I came up with the BrickFactory, which simply clones the original Brick and sets its new color. 

@@ -54,7 +54,7 @@ class Module
 	public function getControllerConfig()
 	{
 		return array('factories' => array(
-			'Building\Controller\Buildings' => function ($sm)
+			'Building\Controller\Building' => function ($sm)
 			{
 				$building = $sm->getServiceLocator()->get('Building');
 				$model = $sm->getServiceLocator()->get('Invokable\ViewModel');

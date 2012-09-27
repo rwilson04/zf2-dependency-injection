@@ -2,7 +2,6 @@
 return array(
     'modules' => array(
         'Application',
-		'Album',
 		'Building',
     ),
     'module_listener_options' => array(

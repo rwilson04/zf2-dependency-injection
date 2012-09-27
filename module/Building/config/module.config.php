@@ -10,7 +10,7 @@ return array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Building\Controller\Buildings',
+                        'controller' => 'Building\Controller\Building',
                         'action'     => 'index',
                     ),
                 ),
