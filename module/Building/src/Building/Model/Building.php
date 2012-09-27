@@ -14,8 +14,12 @@ class Building
 	public function getNewBrick($color)
 	{
 		$factory = $this->brickFactory;
-		$brick = $factory->createBrick($color);
-		$brick->setColor($color);
+		//$brick = $factory->createBrick($color);
+		#$brick = $factory->get('PluginManagerBrick');
+		//$brick = $factory->create('PluginManagerBrick');
+		$brick = $factory->get('PluginManagerBrick', array('color'=>$color));
+		//$brick = $factory->get('PluginManagerBrick');
+		//$brick->setColor($color);
 		return $brick;
 	}
 
@@ -28,11 +32,11 @@ class Building
 			if ($color === null)
 			{
 				$randomColor = $colors[array_rand($colors)];
-				$brick = $this->brickFactory->createBrick($randomColor);
+				$brick = $this->getNewBrick($randomColor);
 			}
 			else
 			{
-				$brick = $this->brickFactory->createBrick($color);
+				$brick = $this->getNewBrick($color);
 			}
 			$layer[] = $brick;
 		}

@@ -28,6 +28,9 @@ class Module
 			'invokables'=>array(
 				'Invokable\ViewModel'=>'\Zend\View\Model\ViewModel'
 			),
+			'shared'=>array(
+				'Brick'=>false,
+			),
 			'factories'=>array(
 				'Brick'=> function($sm)
 				{
@@ -35,16 +38,26 @@ class Module
 					$brick = new Model\Brick($color);
 					return $brick;
 				},
-				'BrickFactory'=> function($sm)
+				#'BrickFactory'=> function($sm)
+				#{
+					#$brick = $sm->get('Brick');
+					#$bf = new Model\BrickFactory($brick);
+					#return $bf;
+				#},
+				'BrickPluginManager'=>function($sm)
 				{
-					$brick = $sm->get('Brick');
-					$bf = new Model\BrickFactory($brick);
-					return $bf;
+					$pluginManager = new Model\BrickFactory();
+					$pluginManager->setFactory('PluginManagerBrick', function($sm){
+						$brick = $sm->getServiceLocator()->get('Brick');
+						return $brick;
+					});
+					return $pluginManager;
 				},
 				'Building'=>function($sm)
 				{
-					$brickFactory = $sm->get('BrickFactory');
-					$building = new Model\Building($brickFactory);
+					//$brickFactory = $sm->get('BrickFactory');
+					$pluginManager = $sm->get('BrickPluginManager');
+					$building = new Model\Building($pluginManager);
 					return $building;
 				},
 			),
