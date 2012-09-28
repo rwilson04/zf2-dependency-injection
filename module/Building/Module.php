@@ -26,37 +26,19 @@ class Module
 	{
 		return array(
 			'invokables'=>array(
-				'Invokable\ViewModel'=>'\Zend\View\Model\ViewModel'
-			),
-			'shared'=>array(
-				'Brick'=>false,
+				'Invokable\ViewModel'=>'\Zend\View\Model\ViewModel',
 			),
 			'factories'=>array(
-				'Brick'=> function($sm)
+				'BrickFactory'=>function($sm)
 				{
-					$color = "white";
-					$brick = new Model\Brick($color);
-					return $brick;
-				},
-				#'BrickFactory'=> function($sm)
-				#{
-					#$brick = $sm->get('Brick');
-					#$bf = new Model\BrickFactory($brick);
-					#return $bf;
-				#},
-				'BrickPluginManager'=>function($sm)
-				{
-					$pluginManager = new Model\BrickFactory();
-					$pluginManager->setFactory('PluginManagerBrick', function($sm){
-						$brick = $sm->getServiceLocator()->get('Brick');
-						return $brick;
-					});
-					return $pluginManager;
+					$brickFactory = new Model\BrickFactory();
+					$brickFactory #->setShareByDefault(false); //set this only if you want get() to return a new instance every time for each class
+								->setInvokableClass('Brick', 'Building\Model\Brick', false); #($name, $fullyQualifiedClassName, $shared=true)
+					return $brickFactory;
 				},
 				'Building'=>function($sm)
 				{
-					//$brickFactory = $sm->get('BrickFactory');
-					$pluginManager = $sm->get('BrickPluginManager');
+					$pluginManager = $sm->get('BrickFactory');
 					$building = new Model\Building($pluginManager);
 					return $building;
 				},

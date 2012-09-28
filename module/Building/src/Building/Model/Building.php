@@ -5,6 +5,7 @@ class Building
 {
 	protected $brickFactory;
 	protected $bricks;
+	protected $colors = array("red", "brown", "black", "yellow", "orange", "purple", "green");
 
 	public function __construct(BrickFactory $brickFactory)
 	{
@@ -14,30 +15,17 @@ class Building
 	public function getNewBrick($color)
 	{
 		$factory = $this->brickFactory;
-		//$brick = $factory->createBrick($color);
-		#$brick = $factory->get('PluginManagerBrick');
-		//$brick = $factory->create('PluginManagerBrick');
-		$brick = $factory->get('PluginManagerBrick', array('color'=>$color));
-		//$brick = $factory->get('PluginManagerBrick');
-		//$brick->setColor($color);
+		$brick = $factory->get('Brick', array('color'=>$color));
 		return $brick;
 	}
 
 	public function addLayer($color=null)
 	{
-		$colors = array("red", "brown", "black", "yellow");
 		$layer = array();
 		for ($i=0; $i<6; $i++)
 		{
-			if ($color === null)
-			{
-				$randomColor = $colors[array_rand($colors)];
-				$brick = $this->getNewBrick($randomColor);
-			}
-			else
-			{
-				$brick = $this->getNewBrick($color);
-			}
+			$newBrickColor = ($color === null)?$this->colors[array_rand($this->colors)]:$color;
+			$brick = $this->getNewBrick($newBrickColor);
 			$layer[] = $brick;
 		}
 		$this->bricks[]=$layer;

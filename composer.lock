@@ -1,18 +1,18 @@
 {
-    "hash": "3d8fc311b085e1e9bc4ed181947f205d",
+    "hash": "a12e060c724beddd974efecc96d76330",
     "packages": [
         {
             "name": "zendframework/zendframework",
-            "version": "2.0.0",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "release-2.0.0"
+                "reference": "release-2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/zipball/release-2.0.0",
-                "reference": "release-2.0.0",
+                "url": "https://github.com/zendframework/zf2/zipball/release-2.0.2",
+                "reference": "release-2.0.2",
                 "shasum": ""
             },
             "require": {
@@ -77,6 +77,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
+            "time": "2012-09-21 18:28:34",
             "type": "library",
             "extra": {
                 "branch-alias": {
