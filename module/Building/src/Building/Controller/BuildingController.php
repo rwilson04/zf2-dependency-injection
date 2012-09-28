@@ -4,18 +4,18 @@ namespace Building\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Building\Model\Building;
-use Zend\View\Model\ViewModel;
+use Building\Model\ViewFactory;
 
 class BuildingController extends AbstractActionController
 {
 	protected $building;
-	protected $viewModel;
+	protected $viewFactory;
 	
 
-	public function __construct(Building $building, ViewModel $viewModel)
+	public function __construct(Building $building, ViewFactory $viewFactory)
 	{
 		$this->building = $building;
-		$this->viewModel = $viewModel;
+		$this->viewFactory = $viewFactory;
 	}
 
 	public function getBuilding()
@@ -23,9 +23,9 @@ class BuildingController extends AbstractActionController
 		return $this->building;
 	}
 
-	public function getViewModel()
+	public function getViewFactory()
 	{
-		return $this->viewModel;
+		return $this->viewFactory;
 	}
 
 	public function indexAction()
@@ -36,8 +36,7 @@ class BuildingController extends AbstractActionController
 		$building2 = $this->getBuilding(); //gets same instance
 		$building2->addLayer('green');
 		$building2->addLayer();
-		$viewModel = $this->getViewModel();
-		$viewModel->setVariables(array('building'=>$building));
+		$viewModel = $this->getViewFactory()->get('ViewModel', array('building'=>$building));
 		return $viewModel;
 	}
 }

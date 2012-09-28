@@ -25,15 +25,17 @@ class Module
 	public function getServiceConfig()
 	{
 		return array(
-			'invokables'=>array(
-				'Invokable\ViewModel'=>'\Zend\View\Model\ViewModel',
-			),
 			'factories'=>array(
+				'ViewFactory'=>function($sm)
+				{
+					$viewFactory = new Model\ViewFactory();
+					$viewFactory->setInvokableClass('ViewModel', 'Zend\View\Model\ViewModel');
+					return $viewFactory;
+				},
 				'BrickFactory'=>function($sm)
 				{
 					$brickFactory = new Model\BrickFactory();
-					$brickFactory #->setShareByDefault(false); //set this only if you want get() to return a new instance every time for each class
-								->setInvokableClass('Brick', 'Building\Model\Brick', false); #($name, $fullyQualifiedClassName, $shared=true)
+					$brickFactory->setInvokableClass('Brick', 'Building\Model\Brick', false); #($name, $fullyQualifiedClassName, $shared=true)
 					return $brickFactory;
 				},
 				'Building'=>function($sm)
@@ -52,7 +54,7 @@ class Module
 			'Building\Controller\Building' => function ($sm)
 			{
 				$building = $sm->getServiceLocator()->get('Building');
-				$model = $sm->getServiceLocator()->get('Invokable\ViewModel');
+				$model = $sm->getServiceLocator()->get('ViewFactory');
 				$controller = new Controller\BuildingController($building, $model);
 				return $controller;
 			}
