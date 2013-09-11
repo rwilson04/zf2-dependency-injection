@@ -32,7 +32,8 @@ class Building
 			}
 			else
 			{
-				//constructed with runtime parameter 
+				//constructed fully initialized with runtime 
+				// parameter (usally preferred)
 				$brick = $this->getNewBrick($color);
 			}
 			$layer[] = $brick;
