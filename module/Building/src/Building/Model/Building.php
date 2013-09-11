@@ -21,8 +21,20 @@ class Building
 
 	public function addLayer($color=null)
 	{
-		$brickModel = $this->getNewBrick();
-		$layer = $brickModel->getLayer($color);
+		$layer = array();
+		for ($i=1; $i<=6; $i++)
+		{
+			$brick = $this->getNewBrick();
+			if ($color === null)
+			{
+				$brick->setColor($brick->getRandomColor());
+			}
+			else
+			{
+				$brick->setColor($color);
+			}
+			$layer[] = $brick;
+		}
 		$this->_bricks[]=$layer;
 	}
 

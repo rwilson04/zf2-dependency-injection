@@ -27,6 +27,14 @@ class Module
 	{
 		return array(
 			'factories'=>array(
+				//...
+				'Building'=>function($sm)
+				{
+					$factory = $sm->get('BrickFactory');
+					$building = new Model\Building($factory);
+					return $building;
+				},
+				//...
 				'ViewFactory'=>function($sm)
 				{
 					$factory = function($variables=null, $options=null) 
@@ -41,17 +49,10 @@ class Module
 				{
 					$factory = function ($color=null) use ($sm)
 					{
-						$mapper = $sm->get('BrickMapper');
-						$brick = new Model\Brick($mapper, $color);
+						$brick = new Model\Brick($color);
 						return $brick;
 					};
 					return $factory;
-				},
-				'BrickMapper'=>function($sm)
-				{
-					$factory = $sm->get('BrickFactory');
-					$mapper = new Model\BrickMapper($factory);
-					return $mapper;
 				},
 				'Brick'=>function($sm)
 				{
