@@ -24,14 +24,16 @@ class Building
 		$layer = array();
 		for ($i=1; $i<=6; $i++)
 		{
-			$brick = $this->getNewBrick();
 			if ($color === null)
 			{
+				//constructed with the default color and then initialized
+				$brick = $this->getNewBrick();
 				$brick->setColor($brick->getRandomColor());
 			}
 			else
 			{
-				$brick->setColor($color);
+				//constructed with runtime parameter 
+				$brick = $this->getNewBrick($color);
 			}
 			$layer[] = $brick;
 		}
