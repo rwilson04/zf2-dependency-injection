@@ -1,26 +1,43 @@
 <?php
+#module/Building/src/Building/Model/Brick.php
 namespace Building\Model;
 
 class Brick
 {
-	protected $color;
+	protected $_color;
+	protected $_mapper;
+	protected $_randomColors = array("red", "brown", "black", "yellow", 
+		"orange", "purple", "green");
 
-	public function __construct($options = array())
+	public function __construct($mapper, $color)
 	{
-		if (!is_array($options))
-		{
-			throw new \DomainException('$options must be an array');
-		}
-		$this->color = (empty($options['color']))?"default":$options['color'];
+		$this->_mapper = $mapper;
+		$this->_color = ($color===null)?"default":$color;
+	}
+
+	public function getMapper()
+	{
+		return $this->_mapper;
 	}
 
 	public function setColor($color)
 	{
-		$this->color = $color;
+		$this->_color = $color;
 	}
 
 	public function getColor()
 	{
-		return $this->color;
+		return $this->_color;
+	}
+
+	public function getRandomColor()
+	{
+		return $this->_randomColors[array_rand($this->_randomColors)];
+	}
+
+
+	public function getLayer($color=null)
+	{
+		return $this->getMapper()->findAllSixBricks($this, $color);
 	}
 }

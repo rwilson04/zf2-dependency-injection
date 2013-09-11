@@ -1,4 +1,5 @@
 <?php
+#module/Building/Module.php
 namespace Building;
 
 class Module
@@ -28,20 +29,40 @@ class Module
 			'factories'=>array(
 				'ViewFactory'=>function($sm)
 				{
-					$viewFactory = new Model\ViewFactory();
-					$viewFactory->setInvokableClass('ViewModel', 'Zend\View\Model\ViewModel');
-					return $viewFactory;
+					$factory = function($variables=null, $options=null) 
+					{
+						$viewModel = new \Zend\View\Model\ViewModel($variables, 
+							$options);
+						return $viewModel;
+					};
+					return $factory;
 				},
 				'BrickFactory'=>function($sm)
 				{
-					$brickFactory = new Model\BrickFactory();
-					$brickFactory->setInvokableClass('Brick', 'Building\Model\Brick', false); #($name, $fullyQualifiedClassName, $shared=true)
-					return $brickFactory;
+					$factory = function ($color=null) use ($sm)
+					{
+						$mapper = $sm->get('BrickMapper');
+						$brick = new Model\Brick($mapper, $color);
+						return $brick;
+					};
+					return $factory;
+				},
+				'BrickMapper'=>function($sm)
+				{
+					$factory = $sm->get('BrickFactory');
+					$mapper = new Model\BrickMapper($factory);
+					return $mapper;
+				},
+				'Brick'=>function($sm)
+				{
+					$factory = $sm->get('BrickFactory');
+					$model = $factory->__invoke();
+					return $model;
 				},
 				'Building'=>function($sm)
 				{
-					$pluginManager = $sm->get('BrickFactory');
-					$building = new Model\Building($pluginManager);
+					$factory = $sm->get('BrickFactory');
+					$building = new Model\Building($factory);
 					return $building;
 				},
 			),
@@ -54,8 +75,9 @@ class Module
 			'Building\Controller\Building' => function ($sm)
 			{
 				$building = $sm->getServiceLocator()->get('Building');
-				$model = $sm->getServiceLocator()->get('ViewFactory');
-				$controller = new Controller\BuildingController($building, $model);
+				$viewFactory = $sm->getServiceLocator()->get('ViewFactory');
+				$controller = new Controller\BuildingController(
+					$building, $viewFactory);
 				return $controller;
 			}
 		));

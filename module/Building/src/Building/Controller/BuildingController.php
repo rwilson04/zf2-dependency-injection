@@ -1,31 +1,30 @@
 <?php
+#module/Building/src/Building/Controller/BuildingController.php
 
 namespace Building\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Building\Model\Building;
-use Building\Model\ViewFactory;
 
 class BuildingController extends AbstractActionController
 {
-	protected $building;
-	protected $viewFactory;
+	protected $_building;
+	protected $_viewFactory;
 	
 
-	public function __construct(Building $building, ViewFactory $viewFactory)
+	public function __construct($building, $viewFactory)
 	{
-		$this->building = $building;
-		$this->viewFactory = $viewFactory;
+		$this->_building = $building;
+		$this->_viewFactory = $viewFactory;
 	}
 
 	public function getBuilding()
 	{
-		return $this->building;
+		return $this->_building;
 	}
 
-	public function getViewFactory()
+	public function getViewModel($variables = null, $options = null)
 	{
-		return $this->viewFactory;
+		return $this->_viewFactory->__invoke($variables, $options);
 	}
 
 	public function indexAction()
@@ -36,7 +35,8 @@ class BuildingController extends AbstractActionController
 		$building2 = $this->getBuilding(); //gets same instance
 		$building2->addLayer('green');
 		$building2->addLayer();
-		$viewModel = $this->getViewFactory()->get('ViewModel', array('building'=>$building));
+		$viewModel = $this->getViewModel(array('building'=>$building));
 		return $viewModel;
 	}
 }
+

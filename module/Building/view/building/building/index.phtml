@@ -7,6 +7,7 @@ foreach ($this->building->getBricks() as $key=>$layer)
 	{
 		echo '<td style="text-align:center; border:1px solid black">';
 		echo $brick->getColor();
+		//echo spl_object_hash($brick);
 		echo '</td>';
 	}
 	echo '</tr>';

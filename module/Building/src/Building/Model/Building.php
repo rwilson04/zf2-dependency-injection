@@ -1,39 +1,34 @@
 <?php
+#module/Building/src/Building/Model/Building.php
 namespace Building\Model;
 
 class Building
 {
-	protected $brickFactory;
-	protected $bricks;
-	protected $colors = array("red", "brown", "black", "yellow", "orange", "purple", "green");
+	protected $_brickFactory;
+	protected $_bricks;
 
-	public function __construct(BrickFactory $brickFactory)
+	public function __construct($brickFactory)
 	{
-		$this->brickFactory = $brickFactory;
+		$this->_brickFactory = $brickFactory;
 	}
 
-	public function getNewBrick($color)
+	public function getNewBrick($color=null)
 	{
-		$factory = $this->brickFactory;
-		$brick = $factory->get('Brick', array('color'=>$color));
+		$factory = $this->_brickFactory;
+		$brick = $factory->__invoke($color);
 		return $brick;
 	}
 
 	public function addLayer($color=null)
 	{
-		$layer = array();
-		for ($i=0; $i<6; $i++)
-		{
-			$newBrickColor = ($color === null)?$this->colors[array_rand($this->colors)]:$color;
-			$brick = $this->getNewBrick($newBrickColor);
-			$layer[] = $brick;
-		}
-		$this->bricks[]=$layer;
+		$brickModel = $this->getNewBrick();
+		$layer = $brickModel->getLayer($color);
+		$this->_bricks[]=$layer;
 	}
 
 	public function getBricks()
 	{
-		return $this->bricks;
+		return $this->_bricks;
 	}
 
 }
