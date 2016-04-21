@@ -8,7 +8,7 @@ class Brick
 	protected $_randomColors = array("red", "brown", "black", "yellow", 
 		"orange", "purple", "green");
 
-	public function __construct($color)
+	public function __construct($color = null)
 	{
 		$this->_color = ($color===null)?"default":$color;
 	}

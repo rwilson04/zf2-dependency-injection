@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="Bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="building">
+            <directory>./BuildingTest</directory>
+        </testsuite>
+    </testsuites>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">../src</directory>
+		</whitelist>
+	</filter>
+	<listeners>
+		<listener class="\Mockery\Adapter\Phpunit\TestListener"></listener>
+	</listeners>
+</phpunit>
